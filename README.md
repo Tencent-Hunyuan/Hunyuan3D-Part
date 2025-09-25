@@ -1,13 +1,13 @@
 ### ☯️ **Hunyuan3D Part**
 Pipeline of our image to 3D part generation. It contains two key components, P3-SAM and X-Part. The holistic mesh is fed to part detection module P3-SAM to obtain the semantic features, part segmentations and part bounding boxes. Then X-Part generate the complete parts.  
-<img src="P3-SAM/images/HYpart-fullpip.jpg" alt="drawing" width="600"/>
+<img src="P3-SAM/images/HYpart-fullpip.jpg" alt="drawing" width="750"/>
 
 ####  P3-SAM： Native 3D part Segmentation.   
 - Paper: [ https://arxiv.org/abs/2509.06784](https://arxiv.org/abs/2509.06784).  
 - Code: [https://github.com/Tencent-Hunyuan/Hunyuan3D-Part/P3-SAM/](P3-SAM/).  
 - Project Page: [https://murcherful.github.io/P3-SAM/ ](https://murcherful.github.io/P3-SAM/).  
 - HuggingFace Demo: [https://huggingface.co/spaces/tencent/Hunyuan3D-Part](https://huggingface.co/spaces/tencent/Hunyuan3D-Part).   
-<img src="P3-SAM/images/teaser.jpg" alt="drawing" width="600"/>
+<img src="P3-SAM/images/teaser.jpg" alt="drawing" width="750"/>
 
 
 
@@ -16,7 +16,7 @@ Pipeline of our image to 3D part generation. It contains two key components, P3-
 - Code: [https://github.com/Tencent-Hunyuan/Hunyuan3D-Part/XPart/](XPart/).  
 - Project Page: [https://yanxinhao.github.io/Projects/X-Part/](https://yanxinhao.github.io/Projects/X-Part/).  
 - HuggingFace Demo: [https://huggingface.co/spaces/tencent/Hunyuan3D-Part](https://huggingface.co/spaces/tencent/Hunyuan3D-Part).    
-<img src="XPart/assets/teaser.jpg" alt="drawing" width="600"/>
+<img src="XPart/assets/teaser.jpg" alt="drawing" width="750"/>
 
 
 
