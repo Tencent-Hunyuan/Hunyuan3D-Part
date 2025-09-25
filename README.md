@@ -1,6 +1,5 @@
 ### ☯️ **Hunyuan3D Part**
-
-- Pipeline of our image to 3D part generation. It contains two key components, P3-SAM and X-Part. The holistic mesh is fed to part detection module P3-SAM to obtain the semantic features, part segmentations and part bounding boxes. Then X-Part generate the complete parts.  
+Pipeline of our image to 3D part generation. It contains two key components, P3-SAM and X-Part. The holistic mesh is fed to part detection module P3-SAM to obtain the semantic features, part segmentations and part bounding boxes. Then X-Part generate the complete parts.  
 <img src="P3-SAM/images/HYpart-fullpip.jpg" alt="drawing" width="600"/>
 
 ####  P3-SAM： Native 3D part Segmentation.   
