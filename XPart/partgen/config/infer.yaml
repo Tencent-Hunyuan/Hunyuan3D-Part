@@ -1,0 +1,122 @@
+name: "Xpart Pipeline release"
+
+ckpt_path: checkpoints/xpart.pt
+
+shapevae:
+  target: partgen.models.autoencoders.VolumeDecoderShapeVAE
+  params:
+    num_latents: &num_latents 1024
+    embed_dim: 64
+    num_freqs: 8
+    include_pi: false
+    heads: 16
+    width: 1024
+    num_encoder_layers: 8
+    num_decoder_layers: 16
+    qkv_bias: false
+    qk_norm: true
+    scale_factor: &z_scale_factor 1.0039506158752403
+    geo_decoder_mlp_expand_ratio: 4
+    geo_decoder_downsample_ratio: 1
+    geo_decoder_ln_post: true
+    point_feats: 4
+    pc_size: &pc_size 81920 
+    pc_sharpedge_size: &pc_sharpedge_size 0
+
+bbox_predictor:
+  target: partgen.bbox_estimator.auto_mask_api.AutoMask
+  params:
+    ckpt_path: checkpoints/p3sam.ckpt
+conditioner:
+  target: partgen.models.conditioner.condioner_release.Conditioner
+  params:
+    use_geo: true
+    use_obj: true
+    use_seg_feat: true
+    geo_cfg:
+      target: partgen.models.conditioner.part_encoders.PartEncoder
+      output_dim: &cross2_output_dim 1024
+      params:
+        use_local: true
+        local_feat_type: latents_shape # [latents,miche-point-query-structural-vae]
+        num_tokens_cond: &num_tokens_cond 4096 # num_tokens :2048 for holopart conditioner
+        local_geo_cfg:
+          target: partgen.models.autoencoders.VolumeDecoderShapeVAE
+          params:
+            num_latents: *num_tokens_cond
+            embed_dim: 64
+            num_freqs: 8
+            include_pi: false
+            heads: 16
+            width: 1024
+            num_encoder_layers: 8
+            num_decoder_layers: 16
+            qkv_bias: false
+            qk_norm: true
+            scale_factor: *z_scale_factor
+            geo_decoder_mlp_expand_ratio: 4
+            geo_decoder_downsample_ratio: 1
+            geo_decoder_ln_post: true
+            point_feats: 4
+            pc_size:  &pc_size_bbox 81920 
+            pc_sharpedge_size: &pc_sharpedge_size_bbox 0
+
+    obj_encoder_cfg:
+      target: partgen.models.autoencoders.VolumeDecoderShapeVAE
+      output_dim: &cross1_output_dim 1024
+      params:
+        num_latents: 4096
+        embed_dim: 64
+        num_freqs: 8
+        include_pi: false
+        heads: 16
+        width: 1024
+        num_encoder_layers: 8
+        num_decoder_layers: 16
+        qkv_bias: false
+        qk_norm: true
+        scale_factor: 1.0039506158752403
+        geo_decoder_mlp_expand_ratio: 4
+        geo_decoder_downsample_ratio: 1
+        geo_decoder_ln_post: true
+        point_feats: 4
+        pc_size: *pc_size
+        pc_sharpedge_size: *pc_sharpedge_size
+    seg_feat_cfg:
+      target: partgen.models.conditioner.sonata_extractor.SonataFeatureExtractor
+
+model:
+  target: partgen.models.partformer_dit.PartFormerDITPlain
+  params:
+    use_self_attention: true
+    use_cross_attention: true
+    use_cross_attention_2: true
+    # cond 
+    use_bbox_cond: false
+    num_freqs: 8
+    use_part_embed: true
+    valid_num: 50 #*valid_num
+    # para
+    input_size: *num_latents
+    in_channels: 64
+    hidden_size: 2048
+    encoder_hidden_dim: *cross1_output_dim # for object mesh
+    encoder_hidden2_dim: *cross2_output_dim # for part in bbox
+    depth: 21
+    num_heads: 16
+    qk_norm: true
+    qkv_bias: false
+    qk_norm_type: 'rms'
+    with_decoupled_ca: false
+    decoupled_ca_dim: *num_tokens_cond
+    decoupled_ca_weight: 1.0
+    use_attention_pooling: false
+    use_pos_emb: false
+    num_moe_layers: 6
+    num_experts: 8
+    moe_top_k: 2
+
+scheduler:
+  target: partgen.models.diffusion.schedulers.FlowMatchEulerDiscreteScheduler
+  params:
+    num_train_timesteps: 1000

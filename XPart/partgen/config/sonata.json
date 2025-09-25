@@ -1,0 +1,58 @@
+{
+  "in_channels": 9,
+  "order": [
+    "z",
+    "z-trans",
+    "hilbert",
+    "hilbert-trans"
+  ],
+  "stride": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "enc_depths": [
+    3,
+    3,
+    3,
+    12,
+    3
+  ],
+  "enc_channels": [
+    48,
+    96,
+    192,
+    384,
+    512
+  ],
+  "enc_num_head": [
+    3,
+    6,
+    12,
+    24,
+    32
+  ],
+  "enc_patch_size": [
+    1024,
+    1024,
+    1024,
+    1024,
+    1024
+  ],
+  "mlp_ratio": 4,
+  "qkv_bias": true,
+  "qk_scale": null,
+  "attn_drop": 0.0,
+  "proj_drop": 0.0,
+  "drop_path": 0.3,
+  "shuffle_orders": true,
+  "pre_norm": true,
+  "enable_rpe": false,
+  "enable_flash": true,
+  "upcast_attention": false,
+  "upcast_softmax": false,
+  "traceable": true,
+  "enc_mode": true,
+  "mask_token": true
+}
