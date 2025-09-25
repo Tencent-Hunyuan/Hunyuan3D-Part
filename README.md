@@ -1,6 +1,6 @@
 ### ☯️ **Hunyuan3D Part**
 
-Available on [![Hunyuan3D-Studio](https://img.shields.io/badge/Hunyuan3D-Studio-yellow)](https://3d.hunyuan.tencent.com/studio) [![Hunyuan3D](https://img.shields.io/badge/Hunyuan-3D-blue)](https://3d.hunyuan.tencent.com).  
+Available on [![Hunyuan3D-Studio](https://img.shields.io/badge/Hunyuan3D-Studio-yellow)](https://3d.hunyuan.tencent.com/studio) [![Hunyuan3D](https://img.shields.io/badge/Hunyuan-3D-blue)](https://3d.hunyuan.tencent.com)  
 
 Pipeline of our image to 3D part generation. It contains two key components, P3-SAM and X-Part. The holistic mesh is fed to part detection module P3-SAM to obtain the semantic features, part segmentations and part bounding boxes. Then X-Part generate the complete parts.  
 <img src="P3-SAM/images/HYpart-fullpip.jpg" alt="drawing" width="800"/>
