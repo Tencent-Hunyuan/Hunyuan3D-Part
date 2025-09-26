@@ -8,7 +8,8 @@ Pipeline of our image to 3D part generation. It contains two key components, P3-
 ####  P3-SAM： Native 3D part Segmentation.   
 - Paper: [ https://arxiv.org/abs/2509.06784](https://arxiv.org/abs/2509.06784).  
 - Code: [https://github.com/Tencent-Hunyuan/Hunyuan3D-Part/tree/main/P3-SAM/](P3-SAM/).  
-- Project Page: [https://murcherful.github.io/P3-SAM/ ](https://murcherful.github.io/P3-SAM/).  
+- Project Page: [https://murcherful.github.io/P3-SAM/ ](https://murcherful.github.io/P3-SAM/).
+- Weights: [https://huggingface.co/tencent/Hunyuan3D-Part](https://huggingface.co/tencent/Hunyuan3D-Part)  
 - HuggingFace Demo: [https://huggingface.co/spaces/tencent/Hunyuan3D-Part](https://huggingface.co/spaces/tencent/Hunyuan3D-Part).   
 <img src="P3-SAM/images/teaser.jpg" alt="drawing" width="800"/>
 
@@ -16,8 +17,9 @@ Pipeline of our image to 3D part generation. It contains two key components, P3-
 
 ####  X-Part： high-fidelity and structure-coherent shape decomposition  
 - Paper: [https://arxiv.org/abs/2509.08643](https://arxiv.org/abs/2509.08643).  
-- Code: [https://github.com/Tencent-Hunyuan/Hunyuan3D-Part/tree/main/XPart](XPart/).  
+- Code: [https://github.com/Tencent-Hunyuan/Hunyuan3D-Part/tree/main/XPart](XPart/).
 - Project Page: [https://yanxinhao.github.io/Projects/X-Part/](https://yanxinhao.github.io/Projects/X-Part/).  
+- Weights: [https://huggingface.co/tencent/Hunyuan3D-Part](https://huggingface.co/tencent/Hunyuan3D-Part)
 - HuggingFace Demo: [https://huggingface.co/spaces/tencent/Hunyuan3D-Part](https://huggingface.co/spaces/tencent/Hunyuan3D-Part).    
 <img src="XPart/assets/teaser.jpg" alt="drawing" width="800"/>
 
