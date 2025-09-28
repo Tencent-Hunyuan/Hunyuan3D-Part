@@ -7,7 +7,7 @@ Pipeline of our image to 3D part generation. It contains two key components, P3-
 
 ###  P3-SAM： Native 3D part Segmentation.   
 
-<video src="https://murcherful.github.io/P3-SAM/images/method.webm" controls width="800"></video>
+<!-- <video src="https://murcherful.github.io/P3-SAM/images/method.webm" controls width="800"></video> -->
 
 - Paper: [ https://arxiv.org/abs/2509.06784](https://arxiv.org/abs/2509.06784).  
 - Code: [https://github.com/Tencent-Hunyuan/Hunyuan3D-Part/tree/main/P3-SAM/](P3-SAM/).  
