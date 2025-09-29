@@ -15,9 +15,9 @@ Generating 3D shapes at part level is pivotal for downstream applications such a
 ![Teaser](./assets/teaser.jpg)
 
 ### TODO List 
-- [X] Realse the paper.
-- [X] Realse the code.
-- [ ] Realse the pre-trained models.
+- [X] Release the paper.
+- [X] Release the code.
+- [ ] Release the pre-trained models.
 
 ### Install 
 1.  We recommend using a virtual environment to install the required packages. 
@@ -33,7 +33,7 @@ Generating 3D shapes at part level is pivotal for downstream applications such a
 
 ### Inference
 1. Download the pre-trained models (TODO)
-2. Run the following command to automantically generate the masks:
+2. Run the following command to automatically generate the masks:
     ```
     python demo.py --config partgen/config/infer.yaml --mesh_path ./data/test.glb --output_path ./results/
     ```
