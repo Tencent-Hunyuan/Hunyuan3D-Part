@@ -776,8 +776,6 @@ def mesh_sam(
     if show_info:
         print(f"点数：{mesh.vertices.shape[0]} 面片数：{mesh.faces.shape[0]}")
 
-    point_num = 100000
-    prompt_num = 400
     with Timer("获取邻接面片"):
         face_adjacency = mesh.face_adjacency
     with Timer("处理邻接面片"):
