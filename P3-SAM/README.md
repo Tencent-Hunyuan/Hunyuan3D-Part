@@ -17,9 +17,9 @@ Segmenting 3D assets into their constituent parts is crucial for enhancing 3D un
 ![Teaser](./images/teaser.jpg)
 
 ### TODO List 
-- [X] Realse the paper.
-- [X] Realse the code.
-- [X] Realse the pre-trained models.
+- [X] Release the paper.
+- [X] Release the code.
+- [X] Release the pre-trained models.
 
 ### Install 
 1.  We recommend using a virtual environment to install the required packages. 
@@ -38,7 +38,7 @@ Segmenting 3D assets into their constituent parts is crucial for enhancing 3D un
 
 ### Inference
 1. Our demo will automatically download the pre-trained models from huggingface. You can also download `p3sam.ckpt` manually from the [link](https://huggingface.co/tencent/Hunyuan3D-Part) and put it in the `weights` folder.
-2. Run the following command to automantically generate the masks:
+2. Run the following command to automatically generate the masks:
     ```
     cd demo
     python auto_mask.py --ckpt_path ../weights/last.ckpt --mesh_path assets/1.glb --output_path results/1
@@ -53,7 +53,7 @@ Segmenting 3D assets into their constituent parts is crucial for enhancing 3D un
     python app.py --ckpt_path ../weights/last.ckpt --data_dir assets
     ```
     ![APP](./images/app.gif)
-4. Or you can run the following command to open a gradio app to automantically generate the masks:
+4. Or you can run the following command to open a gradio app to automatically generate the masks:
     ```
     cd demo
     python gradio_demo.py 
