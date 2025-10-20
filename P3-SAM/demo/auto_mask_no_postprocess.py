@@ -445,8 +445,6 @@ def mesh_sam(
     if show_info:
         print(f"点数：{mesh.vertices.shape[0]} 面片数：{mesh.faces.shape[0]}")
 
-    point_num = 100000
-    prompt_num = 400
 
     with Timer("采样点云"):
         _points, face_idx = trimesh.sample.sample_surface(mesh, point_num, seed=seed)
