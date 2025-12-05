@@ -37,7 +37,7 @@ Segmenting 3D assets into their constituent parts is crucial for enhancing 3D un
     ```
 
 ### Inference
-1. Our demo will automatically download the pre-trained models from huggingface. You can also download `p3sam.ckpt` manually from the [link](https://huggingface.co/tencent/Hunyuan3D-Part) and put it in the `weights` folder.
+1. Our demo will automatically download the pre-trained models from huggingface. You can also download `p3sam.safetensors` manually from the [link](https://huggingface.co/tencent/Hunyuan3D-Part) and put it in the `weights` folder.
 2. Run the following command to automantically generate the masks:
     ```
     cd demo

@@ -32,9 +32,8 @@ def _load_pipeline():
         config, "ckpt_path"
     ), "ckpt or ckpt_path must be specified in config"
     pipeline = PartFormerPipeline.from_pretrained(
-        config=config,
+        model_path="tencent/Hunyuan3D-Part",
         verbose=True,
-        ignore_keys=config.get("ignore_keys", []),
     )
 
     device = args.device if args.device in ["cuda", "cpu"] else "cuda"

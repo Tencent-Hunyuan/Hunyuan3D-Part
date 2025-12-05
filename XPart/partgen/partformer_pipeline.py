@@ -8,6 +8,7 @@ from tqdm import tqdm
 import copy
 from typing import List, Optional, Union
 import os
+from safetensors.torch import load_file
 from .utils.mesh_utils import (
     SampleMesh,
     load_surface_points,
@@ -21,7 +22,9 @@ from .utils.misc import (
     get_config_from_file,
     smart_load_model,
 )
+from easydict import EasyDict
 
+import json
 from diffusers.utils.torch_utils import randn_tensor
 from pathlib import Path
 
@@ -222,43 +225,42 @@ class PartFormerPipeline(TokenAllocMixin):
     @classmethod
     def from_pretrained(
         cls,
-        config=None,
+        model_path="tencent/Hunyuan3D-Part",
         dtype=torch.float32,
-        ignore_keys=(),
         device="cuda",
         **kwargs,
     ):
-        if config is None:
-            config = get_config_from_file(
-                str(
-                    Path(__file__).parent.parent
-                    / "config"
-                    / "partformer_full_pipeline_512_with_sonata.yaml"
-                )
-            )
-        ckpt_path = smart_load_model(
-            model_path="tencent/Hunyuan3D-Part",
+        model_dir = smart_load_model(
+            model_path=model_path,
         )
-        ckpt = torch.load(os.path.join(ckpt_path, "xpart.pt"), map_location="cpu")
+        model_ckpt = load_file(os.path.join(model_dir, "model/model.safetensors"))
+        conditioner_ckpt = load_file(
+            os.path.join(model_dir, "conditioner/conditioner.safetensors")
+        )
+        shapevae_ckpt = load_file(
+            os.path.join(model_dir, "shapevae/shapevae.safetensors")
+        )
+        p3sam_path = os.path.join(model_dir, "p3sam/p3sam.safetensors")
+        with open(os.path.join(model_dir, "model/config.json"), "r") as f:
+            model_config = EasyDict(json.load(f))
+        with open(os.path.join(model_dir, "conditioner/config.json"), "r") as f:
+            conditioner_config = EasyDict(json.load(f))
+        with open(os.path.join(model_dir, "shapevae/config.json"), "r") as f:
+            shapevae_config = EasyDict(json.load(f))
+        with open(os.path.join(model_dir, "scheduler/config.json"), "r") as f:
+            scheduler_config = EasyDict(json.load(f))
+        with open(os.path.join(model_dir, "p3sam/config.json"), "r") as f:
+            bbox_predictor_config = EasyDict(json.load(f))
+            bbox_predictor_config["params"]["ckpt_path"] = p3sam_path
         # load model
-        model = instantiate_from_config(config["model"])
-        # model.load_state_dict(ckpt["model"])
-        init_from_ckpt(model, ckpt, prefix="model", ignore_keys=ignore_keys)
-        vae = instantiate_from_config(config["shapevae"])
-        # vae.load_state_dict(ckpt["shapevae"], strict=False)
-        init_from_ckpt(vae, ckpt, prefix="shapevae", ignore_keys=ignore_keys)
-        if config.get("conditioner", None) is not None:
-            conditioner = instantiate_from_config(config["conditioner"])
-            init_from_ckpt(
-                conditioner, ckpt, prefix="conditioner", ignore_keys=ignore_keys
-            )
-        else:
-            conditioner = vae
-        scheduler = instantiate_from_config(config["scheduler"])
-        config["bbox_predictor"]["params"]["ckpt_path"] = os.path.join(
-            ckpt_path, "p3sam.ckpt"
-        )
-        bbox_predictor = instantiate_from_config(config.get("bbox_predictor", None))
+        model = instantiate_from_config(model_config)
+        model.load_state_dict(model_ckpt)
+        vae = instantiate_from_config(shapevae_config)
+        vae.load_state_dict(shapevae_ckpt)
+        conditioner = instantiate_from_config(conditioner_config)
+        conditioner.load_state_dict(conditioner_ckpt)
+        scheduler = instantiate_from_config(scheduler_config)
+        bbox_predictor = instantiate_from_config(bbox_predictor_config)
         model_kwargs = dict(
             vae=vae,
             model=model,

@@ -33,24 +33,22 @@ class YSAM(nn.Module):
         super().__init__()
         build_P3SAM(self)
 
-    def load_state_dict(
-        self,
-        state_dict,
-        strict=True,
-        assign=False,
-        ignore_seg_mlp=False,
-        ignore_seg_s2_mlp=False,
-        ignore_iou_mlp=False,
-    ):
-        load_state_dict(
-            self,
-            state_dict,
-            strict=strict,
-            assign=assign,
-            ignore_seg_mlp=ignore_seg_mlp,
-            ignore_seg_s2_mlp=ignore_seg_s2_mlp,
-            ignore_iou_mlp=ignore_iou_mlp,
-        )
+    def load_state_dict(self, 
+                        ckpt_path=None, 
+                        state_dict=None, 
+                        strict=True, 
+                        assign=False, 
+                        ignore_seg_mlp=False, 
+                        ignore_seg_s2_mlp=False, 
+                        ignore_iou_mlp=False):
+        load_state_dict(self, 
+                        ckpt_path=ckpt_path, 
+                        state_dict=state_dict, 
+                        strict=strict, 
+                        assign=assign, 
+                        ignore_seg_mlp=ignore_seg_mlp, 
+                        ignore_seg_s2_mlp=ignore_seg_s2_mlp, 
+                        ignore_iou_mlp=ignore_iou_mlp)
 
     def forward(self, feats, points, point_prompt, iter=1):
         """
@@ -1362,9 +1360,7 @@ class AutoMask:
         post_process: bool, 是否后处理
         """
         self.model = YSAM()
-        self.model.load_state_dict(
-            torch.load(ckpt_path, map_location="cpu")["state_dict"]
-        )
+        self.model.load_state_dict(ckpt_path)
         self.model.eval()
         self.model_parallel = torch.nn.DataParallel(self.model)
         self.model.cuda()

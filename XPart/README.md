@@ -35,7 +35,7 @@ Generating 3D shapes at part level is pivotal for downstream applications such a
 1. Download the pre-trained models (TODO)
 2. Run the following command to automantically generate the masks:
     ```
-    python demo.py --config partgen/config/infer.yaml --mesh_path ./data/test.glb --output_path ./results/
+    python demo.py --config partgen/config/infer.yaml --mesh_path ./data/test.glb --save_dir ./results/
     ```
 
 
