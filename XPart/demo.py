@@ -33,9 +33,8 @@ def main(ckpt_path, config, mesh_path, save_dir, ignore_keys=()):
     #     ignore_keys=ignore_keys,
     # )
     pipeline = PartFormerPipeline.from_pretrained(
-        config=config,
+        model_path="tencent/Hunyuan3D-Part",
         verbose=True,
-        ignore_keys=ignore_keys,
     )
     pipeline.to(device="cuda", dtype=torch.float32)
     cfg = -1.0
