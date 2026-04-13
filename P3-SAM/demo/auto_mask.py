@@ -776,8 +776,6 @@ def mesh_sam(
     if show_info:
         print(f"点数：{mesh.vertices.shape[0]} 面片数：{mesh.faces.shape[0]}")
 
-    point_num = 100000
-    prompt_num = 400
     with Timer("获取邻接面片"):
         face_adjacency = mesh.face_adjacency
     with Timer("处理邻接面片"):
@@ -1338,30 +1336,32 @@ if __name__ == '__main__':
             os.makedirs(_output_path, exist_ok=True)
             mesh = trimesh.load(_mesh_path, force='mesh')
             set_seed(args.seed)
-            aabb, face_ids, mesh = auto_mask.predict_aabb(mesh, 
-                                                        save_path=_output_path, 
-                                                        point_num=args.point_num, 
-                                                        prompt_num=args.prompt_num, 
-                                                        threshold=args.threshold, 
-                                                        post_process=args.post_process, 
-                                                        save_mid_res=args.save_mid_res, 
+            aabb, face_ids, mesh = auto_mask.predict_aabb(mesh,
+                                                        save_path=_output_path,
+                                                        point_num=args.point_num,
+                                                        prompt_num=args.prompt_num,
+                                                        threshold=args.threshold,
+                                                        post_process=args.post_process,
+                                                        save_mid_res=args.save_mid_res,
                                                         show_info=args.show_info,
                                                         seed=args.seed,
                                                         is_parallel=args.parallel,
+                                                        prompt_bs=args.prompt_bs,
                                                         clean_mesh_flag=args.clean_mesh,)
     else:     
         mesh = trimesh.load(mesh_path, force='mesh')
         set_seed(args.seed)
-        aabb, face_ids, mesh = auto_mask.predict_aabb(mesh, 
-                                                    save_path=output_path, 
-                                                    point_num=args.point_num, 
-                                                    prompt_num=args.prompt_num, 
-                                                    threshold=args.threshold, 
-                                                    post_process=args.post_process, 
-                                                    save_mid_res=args.save_mid_res, 
+        aabb, face_ids, mesh = auto_mask.predict_aabb(mesh,
+                                                    save_path=output_path,
+                                                    point_num=args.point_num,
+                                                    prompt_num=args.prompt_num,
+                                                    threshold=args.threshold,
+                                                    post_process=args.post_process,
+                                                    save_mid_res=args.save_mid_res,
                                                     show_info=args.show_info,
                                                     seed=args.seed,
                                                     is_parallel=args.parallel,
+                                                    prompt_bs=args.prompt_bs,
                                                     clean_mesh_flag=args.clean_mesh,)
 
     ###############################################
